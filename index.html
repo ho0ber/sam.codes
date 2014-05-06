@@ -57,6 +57,9 @@ PUBLIC "-//W3C//DTD HTML 4.01//EN"
             $("#console").html('$ <span id="entry_0"></span>_')
             cur = 0
             break;
+          case "restart":
+            window.location.reload()
+            return 0
           case "whoami":
             response = "Samuel Colburn\n\n";
             break;
