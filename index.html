@@ -35,9 +35,7 @@ PUBLIC "-//W3C//DTD HTML 4.01//EN"
         if (e.which == 13) { // enterte
           $('#entry_'+cur).html(st+String.fromCharCode(e.which));
           newcur = cur + 1
-          parse_entry()
-          $('#response_'+cur).after( '$ <span class="entry" id="entry_' + newcur + '">')
-          cur = newcur
+          cur = parse_entry(newcur)
           st = ""
           window.scrollTo(0,document.body.scrollHeight);
         } else {
@@ -45,22 +43,37 @@ PUBLIC "-//W3C//DTD HTML 4.01//EN"
           $('#entry_'+cur).html(st);
         }
       });
-      function parse_entry() {
-        var response = "command not found: "+st
+      function parse_entry(newcur) {
+        var response = "command not found: "+st+"\n\n"
         st_arr = st.split(" ")
-        if (st_arr[0] == "git") response = "git: access denied for: "+st_arr.splice(1).join(" ")
+        if (st_arr[0] == "git") response = "git: access denied for: "+st_arr.splice(1).join(" ")+'\n\n'
+
         switch(st) {
+          case "":
+            response = "";
+            break;
+          case "clear":
+            response = "";
+            $("#console").html('$ <span id="entry_0"></span>_')
+            cur = 0
+            break;
           case "whoami":
-            response = "Samuel Colburn";
+            response = "Samuel Colburn\n\n";
             break;
           case "git config --get user.email":
-            response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>';
+            response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>\n\n';
             break;
         }
-        $('#entry_'+cur).after( '<span class="response" id="response_'+cur+'">'+response+'\n\n</span>' )
+
+        if (st != "clear") {
+          $('#entry_'+cur).after( '<span class="response" id="response_'+cur+'">'+response+'</span>' )
+          $('#response_'+cur).after( '$ <span class="entry" id="entry_' + newcur + '">')
+          return newcur
+        }
+        return 0
       }
     </script>
-    <pre>
+    <pre id="console">
 $ whoami
 Samuel Colburn
 
@@ -91,11 +104,14 @@ $ history
     2013  voiced a part in an Audible.com audiobook
 
 $ ls
-bookmarks.htm  passwords.txt  README
+bookmarks.htm  credit.htm  passwords.txt  README
 
 $ cat bookmarks.htm
 <a href="http://www.linkedin.com/in/samuelcolburn">http://www.linkedin.com/in/samuelcolburn</a>
 <a href="https://github.com/ho0ber">https://github.com/ho0ber</a>
+
+$ cat credit.htm
+Inspired by and adapted from the website of <a href="http://jonasferry.com/">Jonas Ferry</a>
 
 $ <span id="entry_0"></span>_
     </pre>
