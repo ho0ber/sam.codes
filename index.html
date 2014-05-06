@@ -18,6 +18,43 @@ PUBLIC "-//W3C//DTD HTML 4.01//EN"
       a:hover {
         text-decoration: underline;
       }
+
+      .blink_me {
+          -webkit-animation-name: blinker;
+          -webkit-animation-duration: 1s;
+          -webkit-animation-timing-function: linear;
+          -webkit-animation-iteration-count: infinite;
+
+          -moz-animation-name: blinker;
+          -moz-animation-duration: 1s;
+          -moz-animation-timing-function: linear;
+          -moz-animation-iteration-count: infinite;
+
+          animation-name: blinker;
+          animation-duration: 1s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+      }
+
+      @-moz-keyframes blinker {
+          0% { opacity: 1.0; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1.0;  }
+      }
+
+      @-webkit-keyframes blinker {
+          0% { background-color: black; color: lime; }
+          40% { background-color: black; color: lime; }
+          50% { background-color: lime; color: black; }
+          90% { background-color: lime; color: black; }
+          100% { background-color: black; color: lime; }
+      }
+
+      @keyframes blinker {
+          0% { opacity: 1.0; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1.0; }
+      }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
@@ -54,7 +91,7 @@ PUBLIC "-//W3C//DTD HTML 4.01//EN"
             break;
           case "clear":
             response = "";
-            $("#console").html('$ <span id="entry_0"></span>_')
+            $("#console").html('$ <span id="entry_0"></span><span class="blink_me">_</span>')
             cur = 0
             break;
           case "restart":
@@ -116,7 +153,7 @@ $ cat bookmarks.htm
 $ cat credit.htm
 Inspired by and adapted from the website of <a href="http://jonasferry.com/">Jonas Ferry</a>
 
-$ <span id="entry_0"></span>_
+$ <span id="entry_0"></span><span class="blink_me">_</span>
     </pre>
   </body>
 </html>
