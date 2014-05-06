@@ -1,0 +1,103 @@
+
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-US">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Samuel Colburn</title>
+    <style type="text/css">
+      body {
+        background-color: black;
+        color: lime;
+      }
+      a {
+        color: lime;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var st = "";
+      var cur = 0;
+      $(document).keydown(function(e) {
+        if (e.which == 8) { // backspace
+          st = st.substr(0,(st.length -1))
+          $('#entry_'+cur).html(st);
+        }
+      });
+      $(document).keypress(function(e) {
+        if (e.which == 13) { // enterte
+          $('#entry_'+cur).html(st+String.fromCharCode(e.which));
+          newcur = cur + 1
+          parse_entry()
+          $('#response_'+cur).after( '$ <span class="entry" id="entry_' + newcur + '">')
+          cur = newcur
+          st = ""
+          window.scrollTo(0,document.body.scrollHeight);
+        } else {
+          st += String.fromCharCode(e.which);
+          $('#entry_'+cur).html(st);
+        }
+      });
+      function parse_entry() {
+        var response = "command not found: "+st
+        st_arr = st.split(" ")
+        if (st_arr[0] == "git") response = "git: access denied for: "+st_arr.splice(1).join(" ")
+        switch(st) {
+          case "whoami":
+            response = "Samuel Colburn";
+            break;
+          case "git config --get user.email":
+            response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>';
+            break;
+        }
+        $('#entry_'+cur).after( '<span class="response" id="response_'+cur+'">'+response+'\n\n</span>' )
+      }
+    </script>
+    <pre>
+$ whoami
+Samuel Colburn
+
+$ git config --get user.email
+<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>
+
+$ echo $HOME
+Boston, Massachusetts, USA
+
+$ jobs
+[4]  2013  &#60;Running&#62;  Software Engineer at Cognius
+[3]  2011  &#60;Stopped&#62;  Development Programmer at MEDITECH
+[2]  2008  &#60;Stopped&#62;  Programmer/Analyst at C&S Wholesale Grocers
+[1]  2006  &#60;Stopped&#62;  PHP Programmer at NinthVector
+
+
+$ history
+    1985  was born
+    1985  resided in Plainfield, NH
+    1992  started programming in BASIC
+    1995  built first website
+    2000  released first electronica album
+    2003  released second electronica album
+    2003  started computer science studies at Bucknell University
+    2007  released third electronica album
+    2008  moved to Keene, NH
+    2011  moved to Boston, MA
+    2013  voiced a part in an Audible.com audiobook
+
+$ ls
+bookmarks.htm  passwords.txt  README
+
+$ cat bookmarks.htm
+<a href="http://www.linkedin.com/in/samuelcolburn">http://www.linkedin.com/in/samuelcolburn</a>
+<a href="https://github.com/ho0ber">https://github.com/ho0ber</a>
+
+$ <span id="entry_0"></span>_
+    </pre>
+  </body>
+</html>
