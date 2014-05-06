@@ -66,6 +66,7 @@ PUBLIC "-//W3C//DTD HTML 4.01//EN"
         if (e.which == 8) { // backspace
           st = st.substr(0,(st.length -1))
           $('#entry_'+cur).html(st);
+          return false;
         }
       });
       $(document).keypress(function(e) {
