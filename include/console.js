@@ -96,7 +96,7 @@ function parse_entry(input, cursor) {
       return 0;
     case "exit":
       window.close();
-      return 0;
+      return run_command("clear", cursor);
     case "ls":
       response = Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
       break;
