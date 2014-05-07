@@ -155,25 +155,31 @@ function cat_command(args) {
 
 // Handle 'ls' command calls
 function ls_command(args) {
-  if (args.length == 0)
-    return Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
-  else if (args.length > 0) {
-    var flags = ""
-    var path = ""
-    for (var i=0; i<args.length; i++) {
-      if (args[i][0] == "-") {
-        flags = args[i]
-      } else {
-        path = args[i]
-      }
+  var flags = ""
+  var path = ""
+  for (var i=0; i<args.length; i++) {
+    if (args[i][0] == "-") {
+      flags = args[i].split('')
+    } else {
+      path = args[i]
     }
-    return Object.keys(access_content(path, "ls")).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
   }
+
+  result = access_content(path, "ls")
+  if (typeof(result) === "string")
+    return result
+  keys = Object.keys(result)
+  if (flags.indexOf('a') < 0)
+    keys = keys.filter(function(n) { return n[0] != "." })
+  if (flags.indexOf('l') >= 0)
+    return keys.join("\n")+"\n\n";
+  else
+    return keys.join("  ")+"\n\n";
 }
 
 // Access nested content in content.js
 function access_content(path_string, command) {
-  var path = path_string.split("/")
+  var path = path_string.split("/").filter(function(n){ return n != "" })
   var object = CONTENT
   for (var i=0; i<path.length; i++) {
     key = path[i]
