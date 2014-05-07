@@ -64,6 +64,7 @@ function initial_commands(cursor) {
   cursor = run_command("ls", cursor)
   cursor = run_command("cat bookmarks.htm", cursor)
   cursor = run_command("cat credit.htm", cursor)
+  cursor = run_command("gui --help", cursor)
   return cursor
 }
 
@@ -97,6 +98,9 @@ function parse_entry(input, cursor) {
     case "gui":
       window.location.href = 'gui';
       return 0;
+    case "gui --help":
+      response = access_content(".hidden/gui-help", "gui").content
+      break;
     case "exit":
       var win = window.open('', '_self');
       window.close();
