@@ -1,8 +1,12 @@
 var st = "";
 var cur = 0;
-var hist = ["whoami", "git config --get user.email", "echo $HOME", "history", "ls", "cat bookmarks.htm", "cat credit.htm"];
+var hist = [];
 var histcurs = -1;
 var st_temp = "";
+
+$(function() {
+  cur = initial_commands(cur)
+});
 
 $(document).keydown(function(e) {
   if (e.which == 8) { // backspace
@@ -37,8 +41,7 @@ $(document).keydown(function(e) {
 $(document).keypress(function(e) {
   if (e.which == 13) { // enter
     $('#entry_'+cur).html(st+String.fromCharCode(e.which));
-    newcur = cur + 1
-    cur = parse_entry(newcur)
+    cur = parse_entry(st, cur)
     st = ""
     window.scrollTo(0,document.body.scrollHeight);
   } else {
@@ -47,45 +50,137 @@ $(document).keypress(function(e) {
   }
 });
 
-function parse_entry(newcur) {
-  if (st != "") hist.push(st)
-  console.log(hist)
+function initial_commands(cursor) {
+  cursor = run_command("whoami", cursor)
+  cursor = run_command("git config --get user.email", cursor)
+  cursor = run_command("echo $HOME", cursor)
+  cursor = run_command("jobs", cursor)
+  cursor = run_command("history", cursor)
+  cursor = run_command("ls", cursor)
+  cursor = run_command("cat bookmarks.htm", cursor)
+  cursor = run_command("cat credit.htm", cursor)
+  return cursor
+}
+
+function run_command(input, cursor) {
+  $('#entry_'+cursor).html(input+'\n');
+  return parse_entry(input, cursor)
+}
+
+function parse_entry(input, cursor) {
+  if (input != "") hist.push(input)
   histcurs = -1
 
-  var response = "command not found: "+st+"\n\n"
-  st_arr = st.split(" ")
-  if (st_arr[0] == "git") response = "git: access denied for: "+st_arr.splice(1).join(" ")+'\n\n'
+  var response = "command not found: "+input+"\n\n"
+  input_arr = input.split(" ")
+  if (input_arr[0] == "git") response = "git: access denied for: "+input_arr.splice(1).join(" ")+'\n\n'
 
-  switch(st) {
+  switch(input) {
     case "":
       response = "";
       break;
     case "clear":
       response = "";
       $("#console").html('$ <span id="entry_0"></span><span class="blink_me">_</span>')
-      cur = 0
-      break;
+      cur = 0;
+      return 0;
     case "restart":
       window.location.reload()
-      return 0
+      return 0;
     case "exit":
       window.close();
-      return 0
+      return 0;
+    case "ls":
+      response = Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
+      break;
+    case "ls -a":
+      response = Object.keys(CONTENT).join("  ")+"\n\n";
+      break;
     case "whoami":
-      response = "Samuel Colburn\n\n";
+      response = access_content(".hidden/whoami", "whoami")
+      break;
+    case "help":
+      response = access_content(".hidden/help", "help")
       break;
     case "history":
-      response = "    1985  was born\n    1985  resided in Plainfield, NH\n    1992  started programming in BASIC\n    1995  built first website\n    2000  released first electronica album\n    2003  released second electronica album\n    2003  started computer science studies at Bucknell University\n    2007  released third electronica album\n    2008  moved to Keene, NH\n    2011  moved to Mansfield, MA\n    2013  voiced a part in an Audible.com audiobook\n\n"
+      response = access_content(".hidden/history", "history")
+      break;
+    case "jobs":
+      response = access_content(".hidden/jobs", "jobs")
       break;
     case "git config --get user.email":
       response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>\n\n';
       break;
+    case "echo $HOME":
+      response = '/USA/Massachusetts/Greater Boston Area/Mansfield\n\n';
+      break;
+    case "reset":
+      cursor = run_command("clear", cursor)
+      cursor = initial_commands(cursor)
+      return cursor;
   }
 
-  if (st != "clear") {
-    $('#entry_'+cur).after( '<span class="response" id="response_'+cur+'">'+response+'</span>' )
-    $('#response_'+cur).after( '$ <span class="entry" id="entry_' + newcur + '">')
-    return newcur
+  switch (input_arr[0]) {
+    case "cat":
+      response = cat_command(input_arr.splice(1));
+      break;
+    case "ls":
+      response = ls_command(input_arr.splice(1));
+      break;
   }
-  return 0
+
+  newcur = cursor + 1
+  $('#entry_'+cursor).after( '<span class="response" id="response_'+cursor+'">'+response+'</span>' )
+  $('#response_'+cursor).after( '$ <span class="entry" id="entry_' + newcur + '">')
+  return newcur
+}
+
+function cat_command(args) {
+  if (args.length > 0) {
+    return access_content(args[0], "cat")
+  }
+  return "cat: pipe is clogged\n"
+}
+
+function ls_command(args) {
+  if (args.length == 0)
+    return Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
+  else if (args.length > 0) {
+    var flags = ""
+    var path = ""
+    for (var i=0; i<args.length; i++) {
+      if (args[i][0] == "-") {
+        flags = args[i]
+      } else {
+        path = args[i]
+      }
+    }
+    return Object.keys(access_content_object(path, "ls")).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
+  }
+}
+
+function access_content(path_string, command) {
+  var path = path_string.split("/")
+  var object = CONTENT
+  for (var i=0; i<path.length; i++) {
+    key = path[i]
+    if (key in object)
+      object = object[key]
+    else
+      return command+": "+path_string+": No such file or directory\n"
+  }
+  return object.content
+}
+
+function access_content_object(path_string, command) {
+  var path = path_string.split("/")
+  var object = CONTENT
+  for (var i=0; i<path.length; i++) {
+    key = path[i]
+    if (key in object)
+      object = object[key]
+    else
+      return command+": "+path_string+": No such file or directory\n"
+  }
+  return object
 }
