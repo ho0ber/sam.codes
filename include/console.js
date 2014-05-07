@@ -95,7 +95,10 @@ function parse_entry(input, cursor) {
       window.location.reload()
       return 0;
     case "exit":
+      var win = window.open('', '_self');
       window.close();
+      win.close();
+       // Just in case the above fails to work...
       return run_command("clear", cursor);
     case "ls":
       response = Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
