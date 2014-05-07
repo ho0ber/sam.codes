@@ -1,13 +1,16 @@
+// Eww! Globals!
 var st = "";
 var cur = 0;
 var hist = [];
 var histcurs = -1;
 var st_temp = "";
 
+// Init the console
 $(function() {
   cur = initial_commands(cur)
 });
 
+// Handle Backspace, Up, and Down keys
 $(document).keydown(function(e) {
   if (e.which == 8) { // backspace
     st = st.substr(0,(st.length -1))
@@ -38,6 +41,7 @@ $(document).keydown(function(e) {
   }
 });
 
+// Handle normal, printable keys
 $(document).keypress(function(e) {
   if (e.which == 13) { // enter
     $('#entry_'+cur).html(st+String.fromCharCode(e.which));
@@ -50,6 +54,7 @@ $(document).keypress(function(e) {
   }
 });
 
+// Run a handful of initial commands
 function initial_commands(cursor) {
   cursor = run_command("whoami", cursor)
   cursor = run_command("git config --get user.email", cursor)
@@ -62,11 +67,13 @@ function initial_commands(cursor) {
   return cursor
 }
 
+// Run a caommand as if it was typed in
 function run_command(input, cursor) {
   $('#entry_'+cursor).html(input+'\n');
   return parse_entry(input, cursor)
 }
 
+// Parse input from the console
 function parse_entry(input, cursor) {
   if (input != "") hist.push(input)
   histcurs = -1
@@ -97,16 +104,16 @@ function parse_entry(input, cursor) {
       response = Object.keys(CONTENT).join("  ")+"\n\n";
       break;
     case "whoami":
-      response = access_content(".hidden/whoami", "whoami")
+      response = access_content(".hidden/whoami", "whoami").content
       break;
     case "help":
-      response = access_content(".hidden/help", "help")
+      response = access_content(".hidden/help", "help").content
       break;
     case "history":
-      response = access_content(".hidden/history", "history")
+      response = access_content(".hidden/history", "history").content
       break;
     case "jobs":
-      response = access_content(".hidden/jobs", "jobs")
+      response = access_content(".hidden/jobs", "jobs").content
       break;
     case "git config --get user.email":
       response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>\n\n';
@@ -135,13 +142,15 @@ function parse_entry(input, cursor) {
   return newcur
 }
 
+// Handle 'cat' command calls
 function cat_command(args) {
   if (args.length > 0) {
-    return access_content(args[0], "cat")
+    return access_content(args[0], "cat").content
   }
   return "cat: pipe is clogged\n"
 }
 
+// Handle 'ls' command calls
 function ls_command(args) {
   if (args.length == 0)
     return Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
@@ -155,24 +164,12 @@ function ls_command(args) {
         path = args[i]
       }
     }
-    return Object.keys(access_content_object(path, "ls")).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
+    return Object.keys(access_content(path, "ls")).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
   }
 }
 
+// Access nested content in content.js
 function access_content(path_string, command) {
-  var path = path_string.split("/")
-  var object = CONTENT
-  for (var i=0; i<path.length; i++) {
-    key = path[i]
-    if (key in object)
-      object = object[key]
-    else
-      return command+": "+path_string+": No such file or directory\n"
-  }
-  return object.content
-}
-
-function access_content_object(path_string, command) {
   var path = path_string.split("/")
   var object = CONTENT
   for (var i=0; i<path.length; i++) {
