@@ -94,6 +94,9 @@ function parse_entry(input, cursor) {
     case "restart":
       window.location.reload()
       return 0;
+    case "gui":
+      window.location.href = 'gui';
+      return 0;
     case "exit":
       var win = window.open('', '_self');
       window.close();
