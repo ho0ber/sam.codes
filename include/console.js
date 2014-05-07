@@ -131,6 +131,9 @@ function parse_entry(input, cursor) {
     case "echo $HOME":
       response = '/USA/Massachusetts/Greater Boston Area/Mansfield\n\n';
       break;
+    case "sudo rm -rf /":
+      die_horribly()
+      break;
     case "reset":
       cursor = run_command("clear", cursor)
       cursor = initial_commands(cursor)
@@ -200,4 +203,26 @@ function access_content(path_string, command) {
       return command+": "+path_string+": No such file or directory\n"
   });
   return object
+}
+
+function die_horribly() {
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 !@#$%^&*()_+-=[]{}|;:,<.>/?";
+  var blinders = ["10", "13", "08"]
+  var text
+  var addtext
+  var addchar
+  $("#console").html('<span class="blind_me"></span>')
+   for( var j=0; j < 100; j++ ) {
+    text = ""
+    for( var i=0; i < Math.floor(Math.random() * 500)+100; i++ ) {
+      addtext = ""
+      addchar = possible.charAt(Math.floor(Math.random() * possible.length))
+      if (addchar != '\n')
+        addtext += '<span class="blind_me_'+blinders[Math.floor(Math.random() * blinders.length)]+'">'+possible.charAt(Math.floor(Math.random() * possible.length))+'</span>'
+      else
+        addtext += addchar
+      text += addtext;
+    }
+    $(".blind_me").last().after('<span class="blind_me">'+text+'\n</span>')
+  }
 }
