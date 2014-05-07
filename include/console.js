@@ -79,7 +79,7 @@ function parse_entry(input, cursor) {
   histcurs = -1
 
   var response = "command not found: "+input+"\n\n"
-  input_arr = input.split(" ")
+  input_arr = input.split(" ").filter(function(n){ return n != "" })
   if (input_arr[0] == "git") response = "git: access denied for: "+input_arr.splice(1).join(" ")+'\n\n'
 
   switch(input) {
@@ -148,7 +148,12 @@ function parse_entry(input, cursor) {
 // Handle 'cat' command calls
 function cat_command(args) {
   if (args.length > 0) {
-    return access_content(args[0], "cat").content
+    result = access_content(args[0], "cat")
+    if (typeof(result) === "string")
+      return result
+    if ("content" in result)
+      return result.content
+    return "cat: "+args[0]+": Is a directory\n"
   }
   return "cat: pipe is clogged\n"
 }
