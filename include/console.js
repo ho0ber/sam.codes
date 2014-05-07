@@ -169,13 +169,13 @@ function cat_command(args) {
 function ls_command(args) {
   var flags = ""
   var path = ""
-  for (var i=0; i<args.length; i++) {
-    if (args[i][0] == "-") {
-      flags = args[i].split('')
+  args.map(function(arg) {
+    if (arg[0] == "-") {
+      flags = arg.split('')
     } else {
-      path = args[i]
+      path = arg
     }
-  }
+  });
 
   result = access_content(path, "ls")
   if (typeof(result) === "string")
@@ -193,12 +193,11 @@ function ls_command(args) {
 function access_content(path_string, command) {
   var path = path_string.split("/").filter(function(n){ return n != "" })
   var object = CONTENT
-  for (var i=0; i<path.length; i++) {
-    key = path[i]
+  path.map(function(key) {
     if (key in object)
       object = object[key]
     else
       return command+": "+path_string+": No such file or directory\n"
-  }
+  });
   return object
 }
