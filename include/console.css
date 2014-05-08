@@ -94,9 +94,11 @@ pre {
 }
 
 @-moz-keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0;  }
+    0% { background-color: black; color: lime; }
+    40% { background-color: black; color: lime; }
+    50% { background-color: lime; color: black; }
+    90% { background-color: lime; color: black; }
+    100% { background-color: black; color: lime; }
 }
 
 @-webkit-keyframes blinker {
@@ -108,7 +110,9 @@ pre {
 }
 
 @keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
+    0% { background-color: black; color: lime; }
+    40% { background-color: black; color: lime; }
+    50% { background-color: lime; color: black; }
+    90% { background-color: lime; color: black; }
+    100% { background-color: black; color: lime; }
 }
