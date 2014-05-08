@@ -4,6 +4,7 @@ var cur = 0;
 var hist = [];
 var histcurs = -1;
 var st_temp = "";
+var cd = "";
 
 // Init the console
 $(function() {
@@ -99,7 +100,7 @@ function parse_entry(input, cursor) {
       window.location.href = 'gui';
       return 0;
     case "gui --help":
-      response = access_content(".hidden/gui-help", "gui").content
+      response = access_content(".bin/gui", "gui").content
       break;
     case "exit":
       var win = window.open('', '_self');
@@ -114,22 +115,19 @@ function parse_entry(input, cursor) {
       response = Object.keys(CONTENT).join("  ")+"\n\n";
       break;
     case "whoami":
-      response = access_content(".hidden/whoami", "whoami").content
+      response = access_content(".bin/whoami", "whoami").content
       break;
     case "help":
-      response = access_content(".hidden/help", "help").content
+      response = access_content(".bin/help", "help").content
       break;
     case "history":
-      response = access_content(".hidden/history", "history").content
+      response = access_content(".bin/history", "history").content
       break;
     case "jobs":
-      response = access_content(".hidden/jobs", "jobs").content
+      response = access_content(".bin/jobs", "jobs").content
       break;
     case "git config --get user.email":
       response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>\n\n';
-      break;
-    case "echo $HOME":
-      response = '/USA/Massachusetts/Greater Boston Area/Mansfield\n\n';
       break;
     case "sudo rm -rf /":
       die_horribly()
@@ -147,6 +145,9 @@ function parse_entry(input, cursor) {
     case "ls":
       response = ls_command(input_arr.splice(1));
       break;
+    case "echo":
+      response = echo_command(input_arr.splice(1));
+      break;
   }
 
   newcur = cursor + 1
@@ -161,11 +162,31 @@ function cat_command(args) {
     result = access_content(args[0], "cat")
     if (typeof(result) === "string")
       return result
+    if ("executable" in result)
+      return "cat: "+args[0]+": Cannot be displayed\n"
     if ("content" in result)
       return result.content
     return "cat: "+args[0]+": Is a directory\n"
   }
   return "cat: pipe is clogged\n"
+}
+
+function echo_command(args) {
+  keys = Object.keys(ENV_VARS)
+  input = args.join(" ")
+  keys.map(function(key) {
+    input = replace_all(key, ENV_VARS[key], input);
+  });
+  input = input.replace('"','').replace("'","")
+  return input+"\n\n"
+}
+
+function replace_all(find, replace, str) {
+  return str.replace(new RegExp(escape_reg_exp(find), 'g'), replace);
+}
+
+function escape_reg_exp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
 // Handle 'ls' command calls
@@ -183,11 +204,15 @@ function ls_command(args) {
   result = access_content(path, "ls")
   if (typeof(result) === "string")
     return result
-  keys = Object.keys(result)
+  keys = Object.keys(result).sort()
   if (flags.indexOf('a') < 0)
     keys = keys.filter(function(n) { return n[0] != "." })
   if (flags.indexOf('l') >= 0)
-    return keys.join("\n")+"\n\n";
+    return keys.map(function(key) {
+      if ("executable" in result[key]) return "-rwxr-xr-x  sam  "+key
+      if ("content" in result[key]) return "-rw-r--r--  sam  "+key
+      return "drw-r--r--  sam  "+key
+    }).join('\n')+"\n\n";
   else
     return keys.join("  ")+"\n\n";
 }
