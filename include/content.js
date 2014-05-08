@@ -22,7 +22,7 @@ var CONTENT = {
       executable: true
     },
     "help": {
-      content: "Ho0berShell Commands: (Partial list)\n cat\n clear\n exit\n help\n ls\n reset\n restart\n\n",
+      content: "Ho0berShell Commands: (Partial list)\n cat\n cd\n clear\n exit\n help\n ls\n pwd\n reset\n restart\n\n",
       executable: true
     },
     "whoami": {

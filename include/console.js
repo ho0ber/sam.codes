@@ -4,7 +4,7 @@ var cur = 0;
 var hist = [];
 var histcurs = -1;
 var st_temp = "";
-var cd = "";
+var cd = [];
 
 // Init the console
 $(function() {
@@ -129,6 +129,9 @@ function parse_entry(input, cursor) {
     case "git config --get user.email":
       response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>\n\n';
       break;
+    case "pwd":
+      response = '/'+cd.join('/')+'\n';
+      break;
     case "sudo rm -rf /":
       die_horribly()
       break;
@@ -144,6 +147,9 @@ function parse_entry(input, cursor) {
       break;
     case "ls":
       response = ls_command(input_arr.splice(1));
+      break;
+    case "cd":
+      response = cd_command(input_arr.splice(1));
       break;
     case "echo":
       response = echo_command(input_arr.splice(1));
@@ -189,6 +195,33 @@ function escape_reg_exp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
+// Handle 'cd' command calls
+function cd_command(args) {
+  if (args.length == 0) {
+    cd = [];
+    return ""
+  }
+  else {
+    if (args[0] == "/" || args[0] == "~") {
+      cd = [];
+      return ""
+    }
+    if (args[0] == "..") {
+      cd.pop();
+      return ""
+    }
+    if (args[0] == ".") {
+      return ""
+    }
+    result = access_content(args[0], "cd")
+    if ("error" in result) return result.error
+    if ("executable" in result) return "cd: "+args[0]+": Is not a directory\n"
+    if ("content" in result) return "cd: "+args[0]+": Is not a directory\n"
+    cd = args[0].split("/").filter(function(n){ return n != "" })
+    return ""
+  }
+}
+
 // Handle 'ls' command calls
 function ls_command(args) {
   var flags = ""
@@ -202,15 +235,30 @@ function ls_command(args) {
   });
 
   result = access_content(path, "ls")
-  if (typeof(result) === "string")
-    return result
+  if ("error" in result)
+    return result.error
+
   keys = Object.keys(result).sort()
+
   if (flags.indexOf('a') < 0)
     keys = keys.filter(function(n) { return n[0] != "." })
+  // else
+  //   keys = [".", ".."].concat(keys)
+
+  if (flags.indexOf('F') >= 0)
+    keys = keys.map(function(key) {
+      if (!("executable" in result[key]) && !("content" in result[key]))
+        return key+"/";
+      return key
+    })
+
   if (flags.indexOf('l') >= 0)
     return keys.map(function(key) {
+      key = key.replace("/","")
       if ("executable" in result[key]) return "-rwxr-xr-x  sam  "+key
       if ("content" in result[key]) return "-rw-r--r--  sam  "+key
+      if (flags.indexOf('F') > 0)
+        return "drw-r--r--  sam  "+key+'/'
       return "drw-r--r--  sam  "+key
     }).join('\n')+"\n\n";
   else
@@ -219,13 +267,17 @@ function ls_command(args) {
 
 // Access nested content in content.js
 function access_content(path_string, command) {
-  var path = path_string.split("/").filter(function(n){ return n != "" })
+  var path = path_string.split("/")
+  if (path_string[0] != "/") {
+    path = cd.concat(path)
+  }
+  path = path.filter(function(n){ return n != "" })
   var object = CONTENT
   path.map(function(key) {
     if (key in object)
       object = object[key]
     else
-      return command+": "+path_string+": No such file or directory\n"
+      object = { error: command+": "+path_string+": No such file or directory\n" }
   });
   return object
 }
