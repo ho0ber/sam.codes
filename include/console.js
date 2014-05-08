@@ -39,20 +39,21 @@ $(document).keydown(function(e) {
     }
     $('#entry_'+cur).html(st);
     return false;
+  } else if (e.which == 13) { // enter
+    $('#entry_'+cur).html(st+String.fromCharCode(e.which));
+    cur = parse_entry(st, cur);
+    st = "";
+    window.scrollTo(0,document.body.scrollHeight);
+    return false;
+  } else if (e.which == 9) { // tab
+    return false;
   }
 });
 
 // Handle normal, printable keys
 $(document).keypress(function(e) {
-  if (e.which == 13) { // enter
-    $('#entry_'+cur).html(st+String.fromCharCode(e.which));
-    cur = parse_entry(st, cur)
-    st = ""
-    window.scrollTo(0,document.body.scrollHeight);
-  } else {
-    st += String.fromCharCode(e.which);
-    $('#entry_'+cur).html(st);
-  }
+  st += String.fromCharCode(e.which);
+  $('#entry_'+cur).html(st);
 });
 
 // Run a handful of initial commands
