@@ -6,7 +6,7 @@ var CONTENT = {
     content: 'Inspired by and adapted from the website of <a href="http://jonasferry.com/">Jonas Ferry</a>\n\n'
   },
   "README": {
-    content: 'Welcome!\n\nThis is the Ho0berShell, a totally useless, inconsistent, and highly opinionated "shell".\nIts opinions are mostly related to cats.\n\n'
+    content: 'Welcome!\n\nThis is the Ho0berShell, a totally useless, inconsistent, and highly opinionated "shell".\nIts opinions are mostly related to cats.\n\nType help to list commands.\n\n'
   },
   ".bin": {
     "history": {
