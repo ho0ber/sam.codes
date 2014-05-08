@@ -38,5 +38,6 @@ var CONTENT = {
 }
 
 var ENV_VARS = {
-  "$HOME": "/USA/Massachusetts/Greater Boston Area/Mansfield"
+  "$HOME": "/USA/Massachusetts/Greater Boston Area/Mansfield",
+  "$VAL": "<3"
 }
