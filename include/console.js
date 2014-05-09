@@ -178,7 +178,7 @@ function check_for_executable(input_arr, input) {
   if (executable in access_content(executable_path,""))
     return execute_command([input_arr[0]])
   else if ((input_arr[0].indexOf("/") == -1) && (input_arr[0] in access_content("/.bin/","")))
-      return execute_command(["/.bin/"+input_arr[0]])
+    return execute_command(["/.bin/"+input_arr[0]])
   else
     return "command not found: "+input+"\n\n"
 }
@@ -203,10 +203,11 @@ function execute_command(args) {
     result = access_content(args[0], "execute")
     if (typeof(result) === "string")
       return result
-    if ("executable" in result)
+    if ("executable" in result) {
       if (result.executable === true)
         return result.content
       return eval(result.executable)()
+    }
     if ("content" in result)
       return "execute: "+args[0]+": Is not executable\n"
     return "execute: "+args[0]+": Is a directory\n"
