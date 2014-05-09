@@ -118,9 +118,9 @@ function parse_entry(input, cursor) {
     case "whoami":
       response = access_content(".bin/whoami", "whoami").content
       break;
-    case "help":
-      response = access_content(".bin/help", "help").content
-      break;
+    // case "help":
+    //   response = access_content(".bin/help", "help").content
+    //   break;
     case "history":
       response = access_content(".bin/history", "history").content
       break;
@@ -160,20 +160,27 @@ function parse_entry(input, cursor) {
       break;
   }
 
-  if (response === "ERROR\n") {
-    executable_path = input_arr[0].split('/')
-    executable = executable_path.pop()
-    executable_path = executable_path.join("/")
-    if (executable in access_content(executable_path,""))
-      response = execute_command([input_arr[0]])
-    else
-      response = "command not found: "+input+"\n\n"
-  }
+  if (response === "ERROR\n")
+    response = check_for_executable(input_arr, input)
+
 
   newcur = cursor + 1
   $('#entry_'+cursor).after( '<span class="response" id="response_'+cursor+'">'+response+'</span>' )
   $('#response_'+cursor).after( '$ <span class="entry" id="entry_' + newcur + '">')
   return newcur
+}
+
+function check_for_executable(input_arr, input) {
+  executable_path = input_arr[0].split('/')
+  executable = executable_path.pop()
+  executable_path = executable_path.join("/")
+
+  if (executable in access_content(executable_path,""))
+    return execute_command([input_arr[0]])
+  else if ((input_arr[0].indexOf("/") == -1) && (input_arr[0] in access_content("/.bin/","")))
+      return execute_command(["/.bin/"+input_arr[0]])
+  else
+    return "command not found: "+input+"\n\n"
 }
 
 // Handle 'cat' command calls
