@@ -308,6 +308,17 @@ function access_content(path_string, command) {
   if (path_string[0] != "/") {
     path = cd.concat(path)
   }
+
+  path = path.filter(function(n){ return n != "." })
+
+  for(var i=0; i<path.length-1; i++) {
+    if (path[i] == "..") {
+      path[i] = "";
+      if (i > 0)
+        path[i-i] = "";
+    }
+  }
+
   path = path.filter(function(n){ return n != "" })
   var object = CONTENT
   path.map(function(key) {
