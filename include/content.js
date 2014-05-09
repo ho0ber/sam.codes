@@ -40,7 +40,7 @@ var CONTENT = {
   },
   ".hidden": {
     "riddle": {
-      executable: 'riddle'
+      executable: "riddle"
     }
   }
 }

@@ -81,7 +81,7 @@ function parse_entry(input, cursor) {
   if (input != "") hist.push(input)
   histcurs = -1
 
-  var response = "command not found: "+input+"\n\n"
+  var response = "ERROR\n"
   input_arr = input.split(" ").filter(function(n){ return n != "" })
   if (input_arr[0] == "git") response = "git: access denied for: "+input_arr.splice(1).join(" ")+'\n\n'
 
@@ -146,6 +146,9 @@ function parse_entry(input, cursor) {
     case "cat":
       response = cat_command(input_arr.splice(1));
       break;
+    case "execute":
+      response = execute_command(input_arr.splice(1));
+      break;
     case "ls":
       response = ls_command(input_arr.splice(1));
       break;
@@ -155,6 +158,16 @@ function parse_entry(input, cursor) {
     case "echo":
       response = echo_command(input_arr.splice(1));
       break;
+  }
+
+  if (response === "ERROR\n") {
+    executable_path = input_arr[0].split('/')
+    executable = executable_path.pop()
+    executable_path = executable_path.join("/")
+    if (executable in access_content(executable_path,""))
+      response = execute_command([input_arr[0]])
+    else
+      response = "command not found: "+input+"\n\n"
   }
 
   newcur = cursor + 1
@@ -176,6 +189,22 @@ function cat_command(args) {
     return "cat: "+args[0]+": Is a directory\n"
   }
   return "cat: pipe is clogged\n"
+}
+
+function execute_command(args) {
+  if (args.length > 0) {
+    result = access_content(args[0], "execute")
+    if (typeof(result) === "string")
+      return result
+    if ("executable" in result)
+      if (result.executable === true)
+        return result.content
+      return eval(result.executable)()
+    if ("content" in result)
+      return "execute: "+args[0]+": Is not executable\n"
+    return "execute: "+args[0]+": Is a directory\n"
+  }
+  return "execute: pipe is clogged\n"
 }
 
 function echo_command(args) {
@@ -303,4 +332,8 @@ function die_horribly() {
     }
     $(".blind_me").last().after('<span class="blind_me">'+text+'\n</span>')
   }
+}
+
+function riddle() {
+  return "THIS IS A RIDDLE!!\n\n"
 }
