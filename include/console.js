@@ -179,8 +179,12 @@ function check_for_executable(input_arr, input) {
     return execute_command([input_arr[0]])
   else if ((input_arr[0].indexOf("/") == -1) && (input_arr[0] in access_content("/.bin/","")))
     return execute_command(["/.bin/"+input_arr[0]])
-  else
-    return "command not found: "+input+"\n\n"
+  else {
+    if (input_arr[0].indexOf("/") == -1)
+      return "command not found: "+input+"\n\n"
+    else
+      return input+": No such file or directory\n\n"
+  }
 }
 
 // Handle 'cat' command calls
