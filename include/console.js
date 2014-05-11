@@ -61,6 +61,7 @@ function initial_commands(cursor) {
   cursor = run_command("whoami", cursor)
   cursor = run_command("git config --get user.email", cursor)
   cursor = run_command("echo $HOME", cursor)
+  cursor = run_command("echo $PATH", cursor)
   cursor = run_command("jobs", cursor)
   cursor = run_command("history", cursor)
   cursor = run_command("ls", cursor)

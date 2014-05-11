@@ -47,5 +47,6 @@ var CONTENT = {
 
 var ENV_VARS = {
   "$HOME": "/USA/Massachusetts/Greater Boston Area/Mansfield",
+  "$PATH": "/Software Engineer:/Gamer:/Voice Actor:/Musician",
   "$VAL": "<3"
 }
