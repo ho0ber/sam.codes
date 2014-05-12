@@ -1,3 +1,9 @@
+// Oh goodness, please don't actually look at this code.
+//
+// It is completely miserable, as it was sprinted together in a very short
+// amount of time.
+
+
 // Eww! Globals!
 var st = "";
 var cur = 0;
