@@ -94,25 +94,25 @@ pre {
 }
 
 @-moz-keyframes blinker {
-    0% { background-color: black; color: lime; }
-    40% { background-color: black; color: lime; }
-    50% { background-color: lime; color: black; }
-    90% { background-color: lime; color: black; }
-    100% { background-color: black; color: lime; }
+    0% { background-color: lime; color: black; }
+    40% { background-color: lime; color: black; }
+    50% { background-color: black; color: lime; }
+    90% { background-color: black; color: lime; }
+    100% { background-color: lime; color: black; }
 }
 
 @-webkit-keyframes blinker {
-    0% { background-color: black; color: lime; }
-    40% { background-color: black; color: lime; }
-    50% { background-color: lime; color: black; }
-    90% { background-color: lime; color: black; }
-    100% { background-color: black; color: lime; }
+    0% { background-color: lime; color: black; }
+    40% { background-color: lime; color: black; }
+    50% { background-color: black; color: lime; }
+    90% { background-color: black; color: lime; }
+    100% { background-color: lime; color: black; }
 }
 
 @keyframes blinker {
-    0% { background-color: black; color: lime; }
-    40% { background-color: black; color: lime; }
-    50% { background-color: lime; color: black; }
-    90% { background-color: lime; color: black; }
-    100% { background-color: black; color: lime; }
+    0% { background-color: lime; color: black; }
+    40% { background-color: lime; color: black; }
+    50% { background-color: black; color: lime; }
+    90% { background-color: black; color: lime; }
+    100% { background-color: lime; color: black; }
 }

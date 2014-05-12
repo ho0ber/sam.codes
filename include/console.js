@@ -5,6 +5,7 @@ var hist = [];
 var histcurs = -1;
 var st_temp = "";
 var cd = [];
+var cursor_offset = 0;
 
 // Init the console
 $(function() {
@@ -14,35 +15,55 @@ $(function() {
 // Handle Backspace, Up, and Down keys
 $(document).keydown(function(e) {
   if (e.which == 8) { // backspace
-    st = st.substr(0,(st.length -1))
-    $('#entry_'+cur).html(st);
+    st = remove_letter(st, cursor_offset);
+    update_input(cur, st, cursor_offset);
     return false;
-  } else if (e.which == 38) {
+  } else if (e.which == 38) { // up
     if (histcurs == -1) {
       st_temp = st;
       histcurs = hist.length-1
+      cursor_offset = 0
+      st = hist[histcurs]
     }
-    else if (histcurs > 0)
+    else if (histcurs > 0) {
       histcurs--
+      cursor_offset = 0
+      st = hist[histcurs]
+    }
 
-    st = hist[histcurs]
-    $('#entry_'+cur).html(st);
+    update_input(cur, st, cursor_offset);
     return false;
-  } else if (e.which == 40) {
+  } else if (e.which == 40) { // down
     if (histcurs >= hist.length -1) {
       histcurs = -1
       st = st_temp
+      cursor_offset = 0
     }
     else if (histcurs >= 0) {
       histcurs++
       st = hist[histcurs]
+      cursor_offset = 0
     }
-    $('#entry_'+cur).html(st);
+    update_input(cur, st, cursor_offset);
+    return false;
+  } else if (e.which == 37) { // left
+    if (cursor_offset <= st.length) {
+      cursor_offset++
+    }
+    update_input(cur, st, cursor_offset);
+    return false;
+  } else if (e.which == 39) { // right
+    if (cursor_offset > 0) {
+      cursor_offset--
+    }
+    update_input(cur, st, cursor_offset);
     return false;
   } else if (e.which == 13) { // enter
     $('#entry_'+cur).html(st+String.fromCharCode(e.which));
     cur = parse_entry(st, cur);
     st = "";
+    cursor_offset = 0;
+    update_input(cur, st, cursor_offset);
     window.scrollTo(0,document.body.scrollHeight);
     return false;
   } else if (e.which == 9) { // tab
@@ -52,8 +73,10 @@ $(document).keydown(function(e) {
 
 // Handle normal, printable keys
 $(document).keypress(function(e) {
-  st += String.fromCharCode(e.which);
-  $('#entry_'+cur).html(st);
+  st = insert_letter(e, st, cursor_offset);
+  // if (cursor_offset > 0)
+  //   cursor_offset--;
+  update_input(cur, st, cursor_offset);
 });
 
 // Run a handful of initial commands
@@ -68,13 +91,39 @@ function initial_commands(cursor) {
   cursor = run_command("cat bookmarks.htm", cursor)
   cursor = run_command("cat credit.htm", cursor)
   cursor = run_command("gui --help", cursor)
+  update_input(cursor, st, cursor_offset);
   return cursor
+}
+
+function calc_cursor(text, cursor) {
+  if (cursor == 0)
+    return text + '<span class="blink_me">_</span>';
+
+  cursor_loc = text.length - cursor;
+  cursor_char = text.charAt(cursor_loc);
+  cursor_html = '<span class="blink_me"><u>' + cursor_char + '</u></span>'
+  return text.slice(0,cursor_loc) + cursor_html + text.slice(cursor_loc + 1)
+}
+
+function insert_letter(event, text, cursor) {
+  new_char = String.fromCharCode(event.which);
+  cursor_loc = text.length - cursor;
+  return text.slice(0,cursor_loc) + new_char + text.slice(cursor_loc)
+}
+
+function remove_letter(text, cursor) {
+  cursor_loc = text.length - cursor;
+  return text.slice(0,cursor_loc - 1) + text.slice(cursor_loc)
+}
+
+function update_input(current, text, cursor) {
+  $('#entry_'+current).html(calc_cursor(text, cursor));
 }
 
 // Run a caommand as if it was typed in
 function run_command(input, cursor) {
   $('#entry_'+cursor).html(input+'\n');
-  return parse_entry(input, cursor)
+  return parse_entry(input, cursor);
 }
 
 // Parse input from the console
@@ -92,7 +141,7 @@ function parse_entry(input, cursor) {
       break;
     case "clear":
       response = "";
-      $("#console").html('$ <span id="entry_0"></span><span class="blink_me">_</span>')
+      $("#console").html('$ <span id="entry_0"></span>')
       cur = 0;
       return 0;
     case "restart":
