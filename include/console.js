@@ -108,12 +108,14 @@ function calc_cursor(text, cursor) {
 function insert_letter(event, text, cursor) {
   new_char = String.fromCharCode(event.which);
   cursor_loc = text.length - cursor;
-  return text.slice(0,cursor_loc) + new_char + text.slice(cursor_loc)
+  return text.slice(0,cursor_loc) + new_char + text.slice(cursor_loc);
 }
 
 function remove_letter(text, cursor) {
   cursor_loc = text.length - cursor;
-  return text.slice(0,cursor_loc - 1) + text.slice(cursor_loc)
+  if (cursor_loc == 0)
+    return text;
+  return text.slice(0,cursor_loc - 1) + text.slice(cursor_loc);
 }
 
 function update_input(current, text, cursor) {
