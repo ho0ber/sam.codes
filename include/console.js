@@ -12,7 +12,14 @@ $(function() {
   cur = initial_commands(cur)
 });
 
-// Handle Backspace, Up, and Down keys
+// Handle "special" keys:
+//  backspace
+//  up
+//  down
+//  left
+//  right
+//  enter
+//  tab
 $(document).keydown(function(e) {
   if (e.which == 8) { // backspace
     st = remove_letter(st, cursor_offset);
@@ -74,8 +81,6 @@ $(document).keydown(function(e) {
 // Handle normal, printable keys
 $(document).keypress(function(e) {
   st = insert_letter(e, st, cursor_offset);
-  // if (cursor_offset > 0)
-  //   cursor_offset--;
   update_input(cur, st, cursor_offset);
 });
 
@@ -95,6 +100,7 @@ function initial_commands(cursor) {
   return cursor
 }
 
+// Calculate the input field's HTML including the cursor
 function calc_cursor(text, cursor) {
   if (cursor == 0)
     return text + '<span class="blink_me">_</span>';
@@ -105,12 +111,14 @@ function calc_cursor(text, cursor) {
   return text.slice(0,cursor_loc) + cursor_html + text.slice(cursor_loc + 1)
 }
 
+// Insert a letter in the input field at the cursor
 function insert_letter(event, text, cursor) {
   new_char = String.fromCharCode(event.which);
   cursor_loc = text.length - cursor;
   return text.slice(0,cursor_loc) + new_char + text.slice(cursor_loc);
 }
 
+// Remove a letter from the input field at the cursor
 function remove_letter(text, cursor) {
   cursor_loc = text.length - cursor;
   if (cursor_loc == 0)
@@ -118,6 +126,7 @@ function remove_letter(text, cursor) {
   return text.slice(0,cursor_loc - 1) + text.slice(cursor_loc);
 }
 
+// Update the display of the input field
 function update_input(current, text, cursor) {
   $('#entry_'+current).html(calc_cursor(text, cursor));
 }
@@ -141,80 +150,19 @@ function parse_entry(input, cursor) {
     case "":
       response = "";
       break;
-    case "clear":
-      response = "";
-      $("#console").html('$ <span id="entry_0"></span>')
-      cur = 0;
-      return 0;
-    case "restart":
-      window.location.reload()
-      return 0;
-    case "gui":
-      window.location.href = 'gui';
-      return 0;
-    case "gui --help":
-      response = access_content(".bin/gui", "gui").content
-      break;
-    case "exit":
-      var win = window.open('', '_self');
-      window.close();
-      win.close();
-       // Just in case the above fails to work...
-      return run_command("clear", cursor);
-    case "ls":
-      response = Object.keys(CONTENT).map(function(e) { if (e[0] != ".") return e }).join("  ")+"\n\n";
-      break;
-    case "ls -a":
-      response = Object.keys(CONTENT).join("  ")+"\n\n";
-      break;
-    case "whoami":
-      response = access_content(".bin/whoami", "whoami").content
-      break;
-    // case "help":
-    //   response = access_content(".bin/help", "help").content
-    //   break;
-    case "history":
-      response = access_content(".bin/history", "history").content
-      break;
-    case "jobs":
-      response = access_content(".bin/jobs", "jobs").content
-      break;
     case "git config --get user.email":
       response = '<a href="mailto:samuel.colburn@gmail.com">samuel.colburn@gmail.com</a>\n\n';
       break;
-    case "pwd":
-      response = '/'+cd.join('/')+'\n';
-      break;
     case "sudo rm -rf /":
       die_horribly()
-      break;
-    case "reset":
-      cursor = run_command("clear", cursor)
-      cursor = initial_commands(cursor)
-      return cursor;
-  }
-
-  switch (input_arr[0]) {
-    case "cat":
-      response = cat_command(input_arr.splice(1));
-      break;
-    case "execute":
-      response = execute_command(input_arr.splice(1));
-      break;
-    case "ls":
-      response = ls_command(input_arr.splice(1));
-      break;
-    case "cd":
-      response = cd_command(input_arr.splice(1));
-      break;
-    case "echo":
-      response = echo_command(input_arr.splice(1));
       break;
   }
 
   if (response === "ERROR\n")
     response = check_for_executable(input_arr, input)
 
+  if (response == "##CLEAR##")
+    return cur
 
   newcur = cursor + 1
   $('#entry_'+cursor).after( '<span class="response" id="response_'+cursor+'">'+response+'</span>' )
@@ -222,22 +170,55 @@ function parse_entry(input, cursor) {
   return newcur
 }
 
+// Checks for executables with the given path in the "path"
 function check_for_executable(input_arr, input) {
   executable_path = input_arr[0].split('/')
   executable = executable_path.pop()
   executable_path = executable_path.join("/")
-
   if (executable in access_content(executable_path,""))
-    return execute_command([input_arr[0]])
-  else if ((input_arr[0].indexOf("/") == -1) && (input_arr[0] in access_content("/.bin/","")))
-    return execute_command(["/.bin/"+input_arr[0]])
-  else {
+    return execute_command(input_arr)
+  else if ((input_arr[0].indexOf("/") == -1) && (input_arr[0] in access_content("/.bin/",""))) {
+    input_arr[0] = "/.bin/"+input_arr[0]
+    return execute_command(input_arr)
+  } else {
     if (input_arr[0].indexOf("/") == -1)
       return "command not found: "+input+"\n\n"
     else
       return input+": No such file or directory\n\n"
   }
 }
+
+// Access nested content in content.js
+function access_content(path_string, command) {
+  var path = path_string.split("/")
+  if (path_string[0] != "/") {
+    path = cd.concat(path)
+  }
+
+  path = path.filter(function(n){ return n != "." })
+
+  for(var i=0; i<path.length-1; i++) {
+    if (path[i] == "..") {
+      path[i] = "";
+      if (i > 0)
+        path[i-i] = "";
+    }
+  }
+
+  path = path.filter(function(n){ return n != "" })
+  var object = CONTENT
+  path.map(function(key) {
+    if (key in object)
+      object = object[key]
+    else
+      object = { error: command+": "+path_string+": No such file or directory\n" }
+  });
+  return object
+}
+
+
+
+// COMMAND FUNCTIONS
 
 // Handle 'cat' command calls
 function cat_command(args) {
@@ -254,6 +235,7 @@ function cat_command(args) {
   return "cat: pipe is clogged\n"
 }
 
+// Handle 'execute' command and any executables
 function execute_command(args) {
   if (args.length > 0) {
     result = access_content(args[0], "execute")
@@ -262,7 +244,7 @@ function execute_command(args) {
     if ("executable" in result) {
       if (result.executable === true)
         return result.content
-      return eval(result.executable)()
+      return eval(result.executable)
     }
     if ("content" in result)
       return "execute: "+args[0]+": Is not executable\n"
@@ -271,6 +253,7 @@ function execute_command(args) {
   return "execute: pipe is clogged\n"
 }
 
+// Handle 'echo' command
 function echo_command(args) {
   keys = Object.keys(ENV_VARS)
   input = args.join(" ")
@@ -279,14 +262,6 @@ function echo_command(args) {
   });
   input = input.replace('"','').replace("'","")
   return input+"\n\n"
-}
-
-function replace_all(find, replace, str) {
-  return str.replace(new RegExp(escape_reg_exp(find), 'g'), replace);
-}
-
-function escape_reg_exp(string) {
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
 // Handle 'cd' command calls
@@ -336,8 +311,6 @@ function ls_command(args) {
 
   if (flags.indexOf('a') < 0)
     keys = keys.filter(function(n) { return n[0] != "." })
-  // else
-  //   keys = [".", ".."].concat(keys)
 
   if (flags.indexOf('F') >= 0)
     keys = keys.map(function(key) {
@@ -359,34 +332,7 @@ function ls_command(args) {
     return keys.join("  ")+"\n\n";
 }
 
-// Access nested content in content.js
-function access_content(path_string, command) {
-  var path = path_string.split("/")
-  if (path_string[0] != "/") {
-    path = cd.concat(path)
-  }
-
-  path = path.filter(function(n){ return n != "." })
-
-  for(var i=0; i<path.length-1; i++) {
-    if (path[i] == "..") {
-      path[i] = "";
-      if (i > 0)
-        path[i-i] = "";
-    }
-  }
-
-  path = path.filter(function(n){ return n != "" })
-  var object = CONTENT
-  path.map(function(key) {
-    if (key in object)
-      object = object[key]
-    else
-      object = { error: command+": "+path_string+": No such file or directory\n" }
-  });
-  return object
-}
-
+// Handles the 'sudo rm -rf /' command
 function die_horribly() {
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 !@#$%^&*()_+-=[]{}|;:,<.>/?";
   var blinders = ["10", "13", "08"]
@@ -409,6 +355,56 @@ function die_horribly() {
   }
 }
 
-function riddle() {
+// Handles the 'riddle' executable
+function riddle_command() {
   return "THIS IS A RIDDLE!!\n\n"
+}
+
+// Handles the 'pwd' command
+function pwd_command() {
+  return '/'+cd.join('/')+'\n';
+}
+
+// Handles the 'gui' command
+function gui_command(args) {
+  if (args.length == 1)
+    window.location.href = 'gui';
+  else if (args.length == 2 && args[1] == "--help")
+    return 'gui: loads the <a href="gui">graphical version of this website</a>\n\n';
+  else
+    return 'gui: unknown arguments: '+args.join(" ")
+}
+
+// Handles the 'exit' command
+function exit_command() {
+  var win = window.open('', '_self');
+  window.close();
+  win.close();
+   // Just in case the above fails to work...
+  return run_command("clear", cursor);
+}
+
+// Handles the 'clear' command
+function clear_command() {
+  $("#console").html('$ <span id="entry_0"></span>')
+  cur = 0;
+  return "##CLEAR##";
+}
+
+// Handles the 'reset' command
+function reset_command() {
+  $("#console").html('$ <span id="entry_0"></span>')
+  cur = initial_commands(0)
+  return "##CLEAR##";
+}
+
+
+// HELPER FUNCTIONS
+
+function replace_all(find, replace, str) {
+  return str.replace(new RegExp(escape_reg_exp(find), 'g'), replace);
+}
+
+function escape_reg_exp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }

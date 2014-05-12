@@ -33,14 +33,48 @@ var CONTENT = {
       content: "[4]  2013  &#60;Running&#62;  Software Engineer at Cognius\n[3]  2011  &#60;Stopped&#62;  Development Programmer at MEDITECH\n[2]  2008  &#60;Stopped&#62;  Programmer/Analyst at C&S Wholesale Grocers\n[1]  2006  &#60;Stopped&#62;  PHP Programmer at NinthVector\n\n",
       executable: true
     },
+    "pwd": {
+      executable: "pwd_command()"
+    },
+    "restart": {
+      executable: "window.location.reload()"
+    },
+    "exit": {
+      executable: "exit_command()"
+    },
+    "clear": {
+      executable: "clear_command()"
+    },
+    "reset": {
+      executable: "reset_command()"
+    },
     "gui": {
-      content: 'gui: loads the <a href="gui">graphical version of this website</a>\n\n',
-      executable: true
-    }
+      executable: "gui_command(args)"
+    },
+    "cat": {
+      executable: "cat_command(args.splice(1))"
+    },
+    "execute": {
+      executable: "execute_command(args.splice(1))"
+    },
+    "ls": {
+      executable: "ls_command(args.splice(1))"
+    },
+    "cd": {
+      executable: "cd_command(args.splice(1))"
+    },
+    "echo": {
+      executable: "echo_command(args.splice(1))"
+    },
+    "execute": {
+      executable: "execute_command(args.splice(1))"
+    },
+
+
   },
   ".hidden": {
     "riddle": {
-      executable: "riddle"
+      executable: "riddle_command()"
     }
   }
 }
