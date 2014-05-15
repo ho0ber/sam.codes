@@ -56,7 +56,7 @@ function game_input(e) {
     //$(document).unbind('keypress', game_input)
     // st = 0
     // clear_command()
-    window.location.reload()
+    restart_command()
   }
   return false
 }

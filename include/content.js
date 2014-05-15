@@ -37,7 +37,7 @@ var CONTENT = {
       executable: "pwd_command()"
     },
     "restart": {
-      executable: "window.location.reload()"
+      executable: "restart_command()"
     },
     "exit": {
       executable: "exit_command()"

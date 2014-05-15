@@ -16,6 +16,11 @@ var cursor_offset = 0;
 // Init the console
 $(function() {
   cur = initial_commands(cur)
+
+  var hash_commands = window.location.hash.slice(1).split(";").filter(function(n){ return n != "" })
+  hash_commands.map(function(command) {
+    cur = run_command(command, cur);
+  });
 });
 
 // Handle "special" keys:
@@ -404,6 +409,11 @@ function reset_command() {
   return "##CLEAR##";
 }
 
+// Handles the 'restart' command
+function restart_command() {
+  window.location.hash = "";
+  window.location.reload();
+}
 
 // HELPER FUNCTIONS
 
@@ -414,3 +424,4 @@ function replace_all(find, replace, str) {
 function escape_reg_exp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
+
