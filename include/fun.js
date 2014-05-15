@@ -1,11 +1,11 @@
 var game = {}
 
-function initialize_game(width, height, max_colors) {
+function initialize_game(game) {
   var board = []
-  for(var i=0; i<height-1; i++) {
+  for(var i=0; i<game["height"]-1; i++) {
     row = []
-    for(var j=0; j<width-1; j++) {
-      row.push(Math.ceil(Math.random()*max_colors))
+    for(var j=0; j<game["width"]-1; j++) {
+      row.push(Math.ceil(Math.random()*game["colors"]))
     }
     board.push(row)
   }
@@ -15,7 +15,7 @@ function initialize_game(width, height, max_colors) {
 }
 
 function take_turn(game, new_color) {
-  old_color = game["board"][0][0]
+  var old_color = game["board"][0][0]
   if (new_color != old_color)
     return change_square(game, old_color, new_color, 0, 0)
   return game
@@ -35,7 +35,20 @@ function change_square(game, old_color, new_color, x, y) {
 }
 
 function start_color_game(args) {
-  game = initialize_game(25, 25, 5)
+  game["width"] = 25
+  game["height"] = 25
+  game["colors"] = 5
+
+  if (args[0] && args[0] > 0 && args[0] < 1000)
+    game["width"] = args[0]
+
+  if (args[1] && args[1] > 0 && args[1] < 1000)
+    game["height"] = args[1]
+
+  if (args[2] && args[2] > 0 && args[2] < 10)
+    game["colors"] = args[2]
+
+  game = initialize_game(game)
   print_board(game)
 
   $(document).bind('keypress', game_input)
@@ -43,13 +56,13 @@ function start_color_game(args) {
 
 function game_input(e) {
   input_char = String.fromCharCode(event.which);
-  if (input_char > 0 && input_char <= 5) {
+  if (input_char > 0 && input_char <= game["colors"]) {
     game["count"]++
     game = take_turn(game, input_char)
     print_board(game)
     return false
   } else if (input_char == "r") {
-    game = initialize_game(25, 25, 5)
+    game = initialize_game()
     print_board(game)
   } else if (input_char == "q") {
     // Haven't quite figured this out yet. You get the lazy version!
