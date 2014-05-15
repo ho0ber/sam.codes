@@ -21,7 +21,10 @@ $(function() {
   hash_commands.map(function(command) {
     cur = run_command(command, cur);
   });
-  update_input(cur, st, cursor_offset);
+  if (hash_commands.length > 0) {
+    update_input(cur, st, cursor_offset);
+    window.scrollTo(0,document.body.scrollHeight);
+  }
 });
 
 // Handle "special" keys:
