@@ -80,7 +80,7 @@ function print_board(game) {
 
   game["board"].map(function(row) {
     row.map(function(square) {
-      output += '<span class="c'+square+'""> '+square+'</span>'
+      output += '<span class="c'+square+'"> '+square+'</span>'
       if (last_color) {
         if (last_color == square || last_color === true)
           last_color = square
@@ -90,7 +90,7 @@ function print_board(game) {
     })
     output += "\n"
   })
-  output += "\n  Moves: "+game["count"]+"  [R] to reset, [Q] to quit"
+  output += "\n  Moves: "+game["count"]+"  [1-"+game["colors"]+"] play  [R] reset  [Q] quit"
   if (last_color)
     output += "\n\n  YOU WIN!"
   $("#console").html('\n'+output+'\n')
