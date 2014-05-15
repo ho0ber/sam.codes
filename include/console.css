@@ -116,3 +116,12 @@ pre {
     90% { background-color: black; color: lime; }
     100% { background-color: lime; color: black; }
 }
+
+.c1 { background-color: lime; color: black; }
+.c2 { background-color: red; color: black; }
+.c3 { background-color: cyan; color: black; }
+.c4 { background-color: yellow; color: black; }
+.c5 { background-color: orange; color: black; }
+.c6 { background-color: purple; color: black; }
+.c7 { background-color: blue; color: white; }
+.c8 { background-color: green; color: black; }

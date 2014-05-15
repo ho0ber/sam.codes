@@ -75,6 +75,9 @@ var CONTENT = {
   ".hidden": {
     "riddle": {
       executable: "riddle_command()"
+    },
+    ".color": {
+      executable: "start_color_game(args.splice(1))"
     }
   }
 }
