@@ -21,6 +21,7 @@ $(function() {
   hash_commands.map(function(command) {
     cur = run_command(command, cur);
   });
+  update_input(cur, st, cursor_offset);
 });
 
 // Handle "special" keys:
