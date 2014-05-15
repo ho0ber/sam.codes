@@ -62,7 +62,7 @@ function game_input(e) {
     print_board(game)
     return false
   } else if (input_char == "r") {
-    game = initialize_game()
+    game = initialize_game(game)
     print_board(game)
   } else if (input_char == "q") {
     // Haven't quite figured this out yet. You get the lazy version!
