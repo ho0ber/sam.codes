@@ -32,7 +32,7 @@ function change_square(board, old_color, new_color, x, y) {
 
 function start_color_game(args) {
 
-  board = initialize_board(10, 10, 5)
+  board = initialize_board(25, 25, 5)
   print_board(board)
 
   $(document).bind('keypress', game_input)
@@ -44,6 +44,9 @@ function game_input(e) {
     board = take_turn(board, input_char)
     print_board(board)
     return false
+  } else if (input_char == "r") {
+    board = initialize_board(25, 25, 5)
+    print_board(board)
   } else if (input_char == "q") {
     // Haven't quite figured this out yet. You get the lazy version!
     //$(document).unbind('keypress', game_input)
