@@ -18,7 +18,7 @@ var CONTENT = {
   },
   ".bin": {
     "history": {
-      content: "    1985  was born\n    1985  resided in Plainfield, NH\n    1992  started programming in BASIC\n    1995  built first website\n    2000  released first electronica album\n    2003  released second electronica album\n    2003  started computer science studies at Bucknell University\n    2007  released third electronica album\n    2008  moved to Keene, NH\n    2011  moved to Mansfield, MA\n    2013  voiced a part in an Audible.com audiobook\n\n",
+      content: "    1985  was born\n    1985  resided in Plainfield, NH\n    1992  started programming in BASIC\n    1995  built first website\n    2000  released first electronica album\n    2003  released second electronica album\n    2003  started computer science studies at Bucknell University\n    2007  released third electronica album\n    2008  moved to Keene, NH\n    2012  moved to Mansfield, MA\n    2013  voiced a part in an Audible.com audiobook\n\n",
       executable: true
     },
     "help": {
