@@ -383,7 +383,7 @@ function pwd_command() {
 // Handles the 'gui' command
 function gui_command(args) {
   if (args.length == 1)
-    window.location.href = 'gui';
+    window.location.href = 'http://samuelcolburn.com/gui';
   else if (args.length == 2 && args[1] == "--help")
     return 'gui: loads the <a href="http://samuelcolburn.com/gui">graphical version of this website</a>\n\n';
   else
