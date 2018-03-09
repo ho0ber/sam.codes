@@ -30,7 +30,7 @@ var CONTENT = {
       executable: true
     },
     "jobs": {
-      content: "[4]  2017  &#60;Running&#62;  Director of Engineering at Cognius\n[4]  2015  &#60;Stopped&#62;  Lead Software Engineer at Cognius\n[4]  2015  &#60;Stopped&#62;  Senior Software Engineer at Cognius\n[4]  2013  &#60;Stopped&#62;  Software Engineer at Cognius\n[3]  2011  &#60;Stopped&#62;  Development Programmer at MEDITECH\n[2]  2008  &#60;Stopped&#62;  Programmer/Analyst at C&S Wholesale Grocers\n[1]  2006  &#60;Stopped&#62;  PHP Programmer at NinthVector\n\n",
+      content: "[5]  2018  &#60;Running&#62;  Director of Engineering at HopJump\n[4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius\n[4]  2015  &#60;Stopped&#62;  Lead Software Engineer at Cognius\n[4]  2015  &#60;Stopped&#62;  Senior Software Engineer at Cognius\n[4]  2013  &#60;Stopped&#62;  Software Engineer at Cognius\n[3]  2011  &#60;Stopped&#62;  Development Programmer at MEDITECH\n[2]  2008  &#60;Stopped&#62;  Programmer/Analyst at C&S Wholesale Grocers\n[1]  2006  &#60;Stopped&#62;  PHP Programmer at NinthVector\n\n",
       executable: true
     },
     "pwd": {
