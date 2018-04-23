@@ -1,0 +1,128 @@
+body {
+  background-color: black;
+  color: lime;
+}
+a {
+  color: lime;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+pre {
+  font-family: console;
+  font-size: 13px;;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+@font-face {
+  font-family: console;
+  src: url(DejaVuSansMono.ttf);
+}
+
+.blink_me {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.blind_me_10 {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 0.1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 0.1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.blind_me_13 {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.13s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 0.13s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 0.13s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.blind_me_08 {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.08s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 0.08s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 0.08s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {
+    0% { background-color: lime; color: black; }
+    40% { background-color: lime; color: black; }
+    50% { background-color: black; color: lime; }
+    90% { background-color: black; color: lime; }
+    100% { background-color: lime; color: black; }
+}
+
+@-webkit-keyframes blinker {
+    0% { background-color: lime; color: black; }
+    40% { background-color: lime; color: black; }
+    50% { background-color: black; color: lime; }
+    90% { background-color: black; color: lime; }
+    100% { background-color: lime; color: black; }
+}
+
+@keyframes blinker {
+    0% { background-color: lime; color: black; }
+    40% { background-color: lime; color: black; }
+    50% { background-color: black; color: lime; }
+    90% { background-color: black; color: lime; }
+    100% { background-color: lime; color: black; }
+}
+
+.c1 { background-color: lime; color: black; }
+.c2 { background-color: red; color: black; }
+.c3 { background-color: cyan; color: black; }
+.c4 { background-color: yellow; color: black; }
+.c5 { background-color: orange; color: black; }
+.c6 { background-color: purple; color: white; }
+.c7 { background-color: blue; color: white; }
+.c8 { background-color: green; color: white; }
+.c9 { background-color: pink; color: black; }
