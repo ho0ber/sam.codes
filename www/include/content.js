@@ -1,6 +1,9 @@
 var CONTENT = {
   "bookmarks.htm": {
-    content: '<a href="http://www.linkedin.com/in/samuelcolburn">http://www.linkedin.com/in/samuelcolburn</a>\n<a href="https://github.com/ho0ber">https://github.com/ho0ber</a>\n\n'
+    content: `
+<a href="http://www.linkedin.com/in/samuelcolburn">http://www.linkedin.com/in/samuelcolburn</a>
+<a href="https://github.com/ho0ber">https://github.com/ho0ber</a>
+`
   },
   "credit.htm": {
     content: 'Inspired by and adapted from the website of <a href="http://jonasferry.com/">Jonas Ferry</a>\n\n'
@@ -18,11 +21,34 @@ var CONTENT = {
   },
   ".bin": {
     "history": {
-      content: "    1985  was born\n    1985  resided in Plainfield, NH\n    1992  started programming in BASIC\n    1995  built first website\n    2000  released first electronica album\n    2003  released second electronica album\n    2003  started computer science studies at Bucknell University\n    2007  released third electronica album\n    2008  moved to Keene, NH\n    2012  moved to Mansfield, MA\n    2013  voiced a part in an Audible.com audiobook\n\n",
+      content: `
+    1985  was born
+    1985  resided in Plainfield, NH
+    1992  started programming in BASIC
+    1995  built first website
+    2000  released first electronica album
+    2003  released second electronica album
+    2003  started computer science studies at Bucknell University
+    2007  released third electronica album
+    2008  moved to Keene, NH
+    2012  moved to Mansfield, MA
+    2013  voiced a part in an Audible.com audiobook
+`,
       executable: true
     },
     "help": {
-      content: "Ho0berShell Commands: (Partial list)\n cat\n cd\n clear\n exit\n help\n ls\n pwd\n reset\n restart\n\n",
+      content: `
+Ho0berShell Commands: (Partial list)
+ cat
+ cd
+ clear
+ exit
+ help
+ ls
+ pwd
+ reset
+ restart
+`,
       executable: true
     },
     "whoami": {
@@ -30,7 +56,17 @@ var CONTENT = {
       executable: true
     },
     "jobs": {
-      content: "[5]  2018  &#60;Running&#62;  Director of Engineering at HopJump\n[4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius\n[4]  2015  &#60;Stopped&#62;  Lead Software Engineer at Cognius\n[4]  2015  &#60;Stopped&#62;  Senior Software Engineer at Cognius\n[4]  2013  &#60;Stopped&#62;  Software Engineer at Cognius\n[3]  2011  &#60;Stopped&#62;  Development Programmer at MEDITECH\n[2]  2008  &#60;Stopped&#62;  Programmer/Analyst at C&S Wholesale Grocers\n[1]  2006  &#60;Stopped&#62;  PHP Programmer at NinthVector\n\n",
+      content: `
+[5]  2019  &#60;Running&#62;  Director of Engineering at EverQuote
+[5]  2018  &#60;Stopped&#62;  Director of Engineering at HopJump
+[4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius
+[4]  2015  &#60;Stopped&#62;  Lead Software Engineer at Cognius
+[4]  2015  &#60;Stopped&#62;  Senior Software Engineer at Cognius
+[4]  2013  &#60;Stopped&#62;  Software Engineer at Cognius
+[3]  2011  &#60;Stopped&#62;  Development Programmer at MEDITECH
+[2]  2008  &#60;Stopped&#62;  Programmer/Analyst at C&S Wholesale Grocers
+[1]  2006  &#60;Stopped&#62;  PHP Programmer at NinthVector
+`,
       executable: true
     },
     "pwd": {

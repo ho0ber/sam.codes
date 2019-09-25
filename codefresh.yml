@@ -1,0 +1,30 @@
+version: '1.0'
+steps:
+  main_clone:
+    title: Cloning main repository...
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: ho0ber/ho0ber
+    working_directory: ./
+    dockerfile: Dockerfile
+    tag: '${{CF_REPO_NAME}}-latest'
+  PushingToDockerRegistry:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: '${{CF_REPO_NAME}}-latest'
+    registry: dockerhub
+  RunningDeployScript:
+    title: Running Deploy Script
+    type: deploy
+    kind: kubernetes
+    cluster: 'hoobernetes' #the name specified when you added the cluster
+    namespace: default #the namespace you wish to deploy into
+    service: sam-codes #the service you would like to update the deployment in
+    candidate:
+      image: '${{BuildingDockerImage}}'
+      registry: 'dockerhub'

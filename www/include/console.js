@@ -244,7 +244,10 @@ function cat_command(args) {
     if ("executable" in result)
       return "cat: "+args[0]+": Cannot be displayed\n"
     if ("content" in result)
-      return result.content
+      if (result.content[0] == "\n")
+        return result.content.slice(1) + "\n"
+      else
+        return result.content
     return "cat: "+args[0]+": Is a directory\n"
   }
   return "cat: pipe is clogged\n"
@@ -258,7 +261,11 @@ function execute_command(args) {
       return result
     if ("executable" in result) {
       if (result.executable === true)
-        return result.content
+        if (result.content[0] == "\n")
+          return result.content.slice(1) + "\n"
+        else
+          return result.content
+
       return eval(result.executable)
     }
     if ("content" in result)
