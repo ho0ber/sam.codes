@@ -78,6 +78,9 @@ Ho0berShell Commands: (Partial list)
     "exit": {
       executable: "exit_command()"
     },
+    "chat": {
+      executable: "maya()"
+    },
     "clear": {
       executable: "clear_command()"
     },

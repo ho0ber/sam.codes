@@ -436,3 +436,15 @@ function escape_reg_exp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
+function maya() {
+  var oImg = document.createElement("img");
+  oImg.setAttribute('src', 'https://hoob.io/maya.png');
+  oImg.setAttribute('alt', 'na');
+  oImg.style.position = 'fixed';
+  oImg.style.right = '0px';
+  oImg.style.bottom = '0px';
+  oImg.style.width = '376px';
+  oImg.style.zIndex = '100';
+  document.body.appendChild(oImg);
+  return "I hope you're happy.\n";
+}
