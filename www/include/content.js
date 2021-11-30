@@ -33,6 +33,7 @@ var CONTENT = {
     2008  moved to Keene, NH
     2012  moved to Mansfield, MA
     2013  voiced a part in an Audible.com audiobook
+    2020  moved to Norton, MA
 `,
       executable: true
     },
@@ -122,7 +123,7 @@ Ho0berShell Commands: (Partial list)
 }
 
 var ENV_VARS = {
-  "$HOME": "/USA/Massachusetts/Greater Boston Area/Mansfield",
+  "$HOME": "/USA/Massachusetts/Greater Boston Area/Norton",
   "$PATH": "/Software Engineer:/Gamer:/Voice Actor:/Musician",
   "$VAL": "<3"
 }
