@@ -88,9 +88,9 @@ Ho0berShell Commands: (Partial list)
     "reset": {
       executable: "reset_command()"
     },
-    "gui": {
-      executable: "gui_command(args)"
-    },
+//     "gui": {
+//       executable: "gui_command(args)"
+//     },
     "cat": {
       executable: "cat_command(args.splice(1))"
     },
