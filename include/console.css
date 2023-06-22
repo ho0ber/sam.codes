@@ -10,6 +10,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.highlight {
+  color: #d30cb8;
+}
+
 pre {
   font-family: console;
   font-size: 13px;;
