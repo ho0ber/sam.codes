@@ -1,9 +1,9 @@
 var CONTENT = {
   "bookmarks.htm": {
     content: `
-<a href="https://blog.sam.codes">https://blog.sam.codes</a>
+<a href="https://blog.sam.codes" class="highlight">https://blog.sam.codes</a>
 <a href="http://www.linkedin.com/in/samuelcolburn">http://www.linkedin.com/in/samuelcolburn</a>
-<a href="https://github.com/ho0ber" class="highlight">https://github.com/ho0ber</a>
+<a href="https://github.com/ho0ber">https://github.com/ho0ber</a>
 `
   },
   "credit.htm": {
