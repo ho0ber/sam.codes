@@ -12,6 +12,7 @@ a:hover {
 
 .highlight {
   color: #d30cb8;
+  font-weight: bold;
 }
 
 pre {
