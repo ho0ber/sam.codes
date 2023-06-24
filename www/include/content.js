@@ -1,7 +1,7 @@
 var CONTENT = {
   "bookmarks.htm": {
     content: `
-<a href="https://links.sam.codes" class="highlight">links://links.sam.codes</a>
+<a href="https://links.sam.codes" class="highlight">https://links.sam.codes</a>
 <a href="https://blog.sam.codes" class="highlight">https://blog.sam.codes</a>
 `
   },
