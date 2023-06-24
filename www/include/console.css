@@ -1,18 +1,22 @@
 body {
   background-color: black;
-  color: lime;
+  color: #6df1d8; /* formerly lime */
 }
 a {
-  color: lime;
+  color: #6df1d8; /* formerly lime */
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
 }
 
+.highlight {
+  color: #d30cb8;
+}
+
 pre {
   font-family: console;
-  font-size: 13px;;
+  font-size: 13px;
   white-space: pre-wrap;       /* css-3 */
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
   white-space: -pre-wrap;      /* Opera 4-6 */
@@ -94,27 +98,27 @@ pre {
 }
 
 @-moz-keyframes blinker {
-    0% { background-color: lime; color: black; }
-    40% { background-color: lime; color: black; }
-    50% { background-color: black; color: lime; }
-    90% { background-color: black; color: lime; }
-    100% { background-color: lime; color: black; }
+    0% { background-color: #6df1d8; color: black; }
+    40% { background-color: #6df1d8; color: black; }
+    50% { background-color: black; color: #6df1d8; }
+    90% { background-color: black; color: #6df1d8; }
+    100% { background-color: #6df1d8; color: black; }
 }
 
 @-webkit-keyframes blinker {
-    0% { background-color: lime; color: black; }
-    40% { background-color: lime; color: black; }
-    50% { background-color: black; color: lime; }
-    90% { background-color: black; color: lime; }
-    100% { background-color: lime; color: black; }
+    0% { background-color: #6df1d8; color: black; }
+    40% { background-color: #6df1d8; color: black; }
+    50% { background-color: black; color: #6df1d8; }
+    90% { background-color: black; color: #6df1d8; }
+    100% { background-color: #6df1d8; color: black; }
 }
 
 @keyframes blinker {
-    0% { background-color: lime; color: black; }
-    40% { background-color: lime; color: black; }
-    50% { background-color: black; color: lime; }
-    90% { background-color: black; color: lime; }
-    100% { background-color: lime; color: black; }
+    0% { background-color: #6df1d8; color: black; }
+    40% { background-color: #6df1d8; color: black; }
+    50% { background-color: black; color: #6df1d8; }
+    90% { background-color: black; color: #6df1d8; }
+    100% { background-color: #6df1d8; color: black; }
 }
 
 .c1 { background-color: lime; color: black; }
