@@ -110,7 +110,7 @@ function initial_commands(cursor) {
   cursor = run_command("ls", cursor)
   cursor = run_command("cat bookmarks.htm", cursor)
   cursor = run_command("cat credit.htm", cursor)
-  cursor = run_command("gui --help", cursor)
+  //cursor = run_command("gui --help", cursor)
   update_input(cursor, st, cursor_offset);
   return cursor
 }
@@ -388,14 +388,14 @@ function pwd_command() {
 }
 
 // Handles the 'gui' command
-function gui_command(args) {
-  if (args.length == 1)
-    window.location.href = 'http://samuelcolburn.com/gui';
-  else if (args.length == 2 && args[1] == "--help")
-    return 'gui: loads the <a href="http://samuelcolburn.com/gui">graphical version of this website</a>\n\n';
-  else
-    return 'gui: unknown arguments: '+args.join(" ")
-}
+// function gui_command(args) {
+//   if (args.length == 1)
+//     window.location.href = 'http://samuelcolburn.com/gui';
+//   else if (args.length == 2 && args[1] == "--help")
+//     return 'gui: loads the <a href="http://samuelcolburn.com/gui">graphical version of this website</a>\n\n';
+//   else
+//     return 'gui: unknown arguments: '+args.join(" ")
+// }
 
 // Handles the 'exit' command
 function exit_command() {
