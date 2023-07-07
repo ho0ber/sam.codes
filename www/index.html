@@ -5,14 +5,10 @@
     <title>Samuel Colburn</title>
     <meta name="description" content="Personal website of Samuel Colburn">
     <link rel="stylesheet" href="include/console.css">
-    <script src="include/jquery.min.js"></script>
-    <script src="include/content.js"></script>
-    <script src="include/fun.js"></script>
-    <script src="include/console.js"></script>
   </head>
   <body>
-    <div hidden="hidden">
-      <pre>
+    <div>
+      <pre id="console">
         $ whoami
         Samuel Colburn
         
@@ -54,8 +50,8 @@
         README  bookmarks.htm  credit.htm  info
         
         $ cat bookmarks.htm
-        https://links.sam.codes
-        https://blog.sam.codes
+        <a href="https://links.sam.codes" class="highlight">links.sam.codes</a>
+        <a href="https://blog.sam.codes" class="highlight">blog.sam.codes</a>
         
         $ cat credit.htm
         Inspired by and adapted from the website of Jonas Ferry
@@ -63,7 +59,5 @@
         $ _
       </pre>
     </div>
-    <pre id="console">$ <span id="entry_0"></span></pre>
   </body>
 </html>
-<!-- FORCE UPDATE -->
