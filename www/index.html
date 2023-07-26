@@ -8,62 +8,65 @@
     <script src="include/jquery.min.js"></script>
     <script src="include/content.js"></script>
     <script src="include/fun.js"></script>
-    <script src="include/console.js"></script>
+    <!-- <script src="include/console.js"></script> -->
   </head>
   <body>
-    <div hidden="hidden">
+    <div id="fallback">
       <pre>
-        $ whoami
-        Samuel Colburn
-        
-        $ git config --get user.email
-        samuel.colburn@gmail.com
-        
-        $ echo $HOME
-        /USA/Massachusetts/Greater Boston Area/Norton
-        
-        $ echo $PATH
-        /Software Engineer:/Gamer:/Voice Actor:/Musician
-        
-        $ jobs
-        [5]  2019  <Running>  Director of Engineering at EverQuote
-        [5]  2018  <Stopped>  Director of Engineering at HopJump
-        [4]  2017  <Stopped>  Director of Engineering at Cognius
-        [4]  2015  <Stopped>  Lead Software Engineer at Cognius
-        [4]  2015  <Stopped>  Senior Software Engineer at Cognius
-        [4]  2013  <Stopped>  Software Engineer at Cognius
-        [3]  2011  <Stopped>  Development Programmer at MEDITECH
-        [2]  2008  <Stopped>  Programmer/Analyst at C&S Wholesale Grocers
-        [1]  2006  <Stopped>  PHP Programmer at NinthVector
-        
-        $ history
-            1985  was born
-            1985  resided in Plainfield, NH
-            1992  started programming in BASIC
-            1995  built first website
-            2000  released first electronica album
-            2003  released second electronica album
-            2003  started computer science studies at Bucknell University
-            2007  released third electronica album
-            2008  moved to Keene, NH
-            2012  moved to Mansfield, MA
-            2013  voiced a part in an Audible.com audiobook
-            2020  moved to Norton, MA
-        
-        $ ls
-        README  bookmarks.htm  credit.htm  info
-        
-        $ cat bookmarks.htm
-        https://links.sam.codes
-        https://blog.sam.codes
-        
-        $ cat credit.htm
-        Inspired by and adapted from the website of Jonas Ferry
-        
-        $ _
+$ whoami
+Samuel Colburn
+
+$ git config --get user.email
+samuel.colburn@gmail.com
+
+$ echo $HOME
+/USA/Massachusetts/Greater Boston Area/Norton
+
+$ echo $PATH
+/Software Engineer:/Gamer:/Voice Actor:/Musician
+
+$ jobs
+[5]  2019  &lt;Running&gt;  Director of Engineering at EverQuote
+[5]  2018  &lt;Stopped&gt;  Director of Engineering at HopJump
+[4]  2017  &lt;Stopped&gt;  Director of Engineering at Cognius
+[4]  2015  &lt;Stopped&gt;  Lead Software Engineer at Cognius
+[4]  2015  &lt;Stopped&gt;  Senior Software Engineer at Cognius
+[4]  2013  &lt;Stopped&gt;  Software Engineer at Cognius
+[3]  2011  &lt;Stopped&gt;  Development Programmer at MEDITECH
+[2]  2008  &lt;Stopped&gt;  Programmer/Analyst at C&S Wholesale Grocers
+[1]  2006  &lt;Stopped&gt;  PHP Programmer at NinthVector
+
+$ history
+    1985  was born
+    1985  resided in Plainfield, NH
+    1992  started programming in BASIC
+    1995  built first website
+    2000  released first electronica album
+    2003  released second electronica album
+    2003  started computer science studies at Bucknell University
+    2007  released third electronica album
+    2008  moved to Keene, NH
+    2012  moved to Mansfield, MA
+    2013  voiced a part in an Audible.com audiobook
+    2020  moved to Norton, MA
+
+$ ls
+README  bookmarks.htm  credit.htm  info
+
+$ cat bookmarks.htm
+<a href="https://links.sam.codes" class="highlight">https://links.sam.codes</a>
+<a href="https://blog.sam.codes" class="highlight">https://blog.sam.codes</a>
+
+$ cat credit.htm
+Inspired by and adapted from the website of Jonas Ferry
+
+$ help
+This page is noninteractive because the console javascript was not able to run.
+
+$ _
       </pre>
     </div>
-    <pre id="console">$ <span id="entry_0"></span></pre>
+    <pre id="console" hidden="hidden">$ <span id="entry_0"></span></pre>
   </body>
 </html>
 <!-- FORCE UPDATE -->

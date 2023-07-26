@@ -15,6 +15,10 @@ var cursor_offset = 0;
 
 // Init the console
 $(function() {
+  // Hide the fallback and unhide the console
+  document.getElementById("fallback").hidden = true
+  document.getElementById("console").hidden = false
+
   cur = initial_commands(cur)
 
   var hash_commands = window.location.hash.slice(1).split(";").filter(function(n){ return n != "" })
