@@ -46,7 +46,55 @@ three albums.
 `
     },
   "technology": {
-    content: "\n<b>Rant</b>\nI love technology. Among my many passions, it is likely foremost.\n\nI love technology for technology's sake; projects that exist only to see what can be done with technology. I often find myself learning a new language or infrastructure simply because I want to see what it might enable me to create. This passion has led me to develop personal projects in everything from Bash to Node.js, and to work professionally in everything from JavaScript to COBOL.\n\nI also love technology for the ways it can impact the lives of people; even the simplest pieces of technology can make a huge difference in the lives of its users. Under an hour of development to create a simple bar-code scanner emulator has enabled several of my coworkers to stop fighting over the one scanner they had access to, and has allowed them to work from home when they would have previously been unable. Five minutes of development to create a script that blocks the \"F11\" key unless you press and hold has potentially saved a different coworker's sanity.\n\nBeing a software developer, to me, is primarily about seeing \"the gap\". Not the clothing retailer, of course; \"the gap\" is that hole in a person's daily life that could be simplified and enriched by technology. The above examples are just that: I found a gap in my coworkers' workflow and I knew I could do something about it.\n\n\n<b>What I do</b>\nProfessionally, I write code in Ruby, Python, Scala, and JS in the web job-search industry. In my free time, I've been workingon a number of side and freelance projects using a bunch of really cool open source bleeding edge stuff.\n\nA large amount of my quick one-offs at my last job were done using <a href=\"http://www.autohotkey.com/\">AutoHotKey</a>. Thisdeceptively simple scripting language is extremely useful for the rapid development of automation and other simple scripts in Windows. My projects in AHK tend to be very small, and are often just one piece in a larger automation puzzle; think of it as windows batch fileson steroids.\n\nFor relatively obvious reasons, as pretty much any geek spends some time on the internet, a lot of my hobby or side work has been in webtechnologies. This started with PHP in a classic LAMP environment, but eventually expanded to doing some clever stuff with AJAX, some heavily client-side javascript oriented projects (including a completely terrible game), and eventually leading me to dabble in more powerful web application frameworks. Most recently, I've been developing in <a href=\"http://nodejs.org/\">Node.js</a> for a <a href=\"/SidDB\">freelance web application</a> I'm building.\n\nIn general, I enjoy working in whatever seems to be the best technology for a given project. If that means learning a new language orframework, then I'm twice as excited to get started. I'm constantly trying to expand my repertoire, and I enjoy learning new technologiesmore than almost any other pastime.\n\n"
+    content: `
+<span class="highlight">
+--------------------------------------------------------------------------------------------------------------
+Disclaimer (2023): This hasn't been updated in almost 10 years. I need to revisit it, but it's kind of cute 
+to leave it up as is to remember how excited I was to learn new things that I did, eventually, go learn.
+--------------------------------------------------------------------------------------------------------------
+</span>
+
+<b>Rant</b>
+I love technology. Among my many passions, it is likely foremost.
+
+I love technology for technology's sake; projects that exist only to see what can be done with technology. I 
+often find myself learning a new language or infrastructure simply because I want to see what it might 
+enable me to create. This passion has led me to develop personal projects in everything from Bash to Node.js, 
+and to work professionally in everything from JavaScript to COBOL.
+
+I also love technology for the ways it can impact the lives of people; even the simplest pieces of technology 
+can make a huge difference in the lives of its users. Under an hour of development to create a simple bar-code 
+scanner emulator has enabled several of my coworkers to stop fighting over the one scanner they had access to, 
+and has allowed them to work from home when they would have previously been unable. Five minutes of development 
+to create a script that blocks the \"F11\" key unless you press and hold has potentially saved a different 
+coworker's sanity.
+
+Being a software developer, to me, is primarily about seeing \"the gap\". Not the clothing retailer, of course; 
+\"the gap\" is that hole in a person's daily life that could be simplified and enriched by technology. The above 
+examples are just that: I found a gap in my coworkers' workflow and I knew I could do something about it.
+
+
+<b>What I do</b>
+Professionally, I write code in Ruby, Python, Scala, and JS in the web job-search industry. In my free time, 
+I've been working on a number of side and freelance projects using a bunch of really cool open source bleeding 
+edge stuff.
+
+A large amount of my quick one-offs at my last job were done using <a href=\"http://www.autohotkey.com/\">AutoHotKey</a>. This deceptively simple scripting 
+language is extremely useful for the rapid development of automation and other simple scripts in Windows. My 
+projects in AHK tend to be very small, and are often just one piece in a larger automation puzzle; think of it 
+as windows batch files on steroids.
+
+For relatively obvious reasons, as pretty much any geek spends some time on the internet, a lot of my hobby or 
+side work has been in web technologies. This started with PHP in a classic LAMP environment, but eventually 
+expanded to doing some clever stuff with AJAX, some heavily client-side javascript oriented projects (including 
+a completely terrible game), and eventually leading me to dabble in more powerful web application frameworks. 
+Most recently, I've been developing in <a href=\"http://nodejs.org/\">Node.js</a> for a <a href=\"/SidDB\">freelance web application</a> I'm building.
+
+In general, I enjoy working in whatever seems to be the best technology for a given project. If that means 
+learning a new language orframework, then I'm twice as excited to get started. I'm constantly trying to expand 
+my repertoire, and I enjoy learning new technologies more than almost any other pastime.
+
+`
   }
   },
   ".bin": {
