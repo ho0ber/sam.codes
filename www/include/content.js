@@ -136,7 +136,7 @@ Ho0berShell Commands: (Partial list)
     },
     "jobs": {
       content: `
-[6]  2022  &#60;Running&#62;  Platform Engineering Manager at Cirkul
+[6]  2023  &#60;Running&#62;  Platform Engineering Manager at Cirkul
 [5]  2019  &#60;Stopped&#62;  Director of Engineering at EverQuote
 [5]  2018  &#60;Stopped&#62;  Director of Engineering at HopJump
 [4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius
