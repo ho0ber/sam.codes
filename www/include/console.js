@@ -112,8 +112,8 @@ function initial_commands(cursor) {
   cursor = run_command("jobs", cursor)
   cursor = run_command("history", cursor)
   cursor = run_command("ls", cursor)
-  cursor = run_command("cat bookmarks.htm", cursor)
-  cursor = run_command("cat credit.htm", cursor)
+  cursor = run_command("cat bookmarks.html", cursor)
+  cursor = run_command("cat credit.html", cursor)
   //cursor = run_command("gui --help", cursor)
   update_input(cursor, st, cursor_offset);
   return cursor

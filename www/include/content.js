@@ -1,11 +1,11 @@
 var CONTENT = {
-  "bookmarks.htm": {
+  "bookmarks.html": {
     content: `
 <a href="https://links.sam.codes" class="highlight">https://links.sam.codes</a>
 <a href="https://blog.sam.codes" class="highlight">https://blog.sam.codes</a>
 `
   },
-  "credit.htm": {
+  "credit.html": {
     content: 'Inspired by and adapted from the website of <a href="http://jonasferry.com/">Jonas Ferry</a>\n\n'
   },
   "README": {
@@ -136,7 +136,8 @@ Ho0berShell Commands: (Partial list)
     },
     "jobs": {
       content: `
-[5]  2019  &#60;Running&#62;  Director of Engineering at EverQuote
+[6]  2022  &#60;Running&#62;  Platform Engineering Manager at Cirkul
+[5]  2019  &#60;Stopped&#62;  Director of Engineering at EverQuote
 [5]  2018  &#60;Stopped&#62;  Director of Engineering at HopJump
 [4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius
 [4]  2015  &#60;Stopped&#62;  Lead Software Engineer at Cognius
