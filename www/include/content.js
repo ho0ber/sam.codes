@@ -138,8 +138,7 @@ Ho0berShell Commands: (Partial list)
       content: `
 [6]  2023  &#60;Running&#62;  Platform Engineering Manager at Cirkul
 [5]  2019  &#60;Stopped&#62;  Director of Engineering at EverQuote
-[5]  2018  &#60;Stopped&#62;  Director of Engineering at HopJump
-[4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius
+[4]  2017  &#60;Stopped&#62;  Director of Engineering at Cognius/Hopjump
 [4]  2015  &#60;Stopped&#62;  Lead Software Engineer at Cognius
 [4]  2015  &#60;Stopped&#62;  Senior Software Engineer at Cognius
 [4]  2013  &#60;Stopped&#62;  Software Engineer at Cognius
